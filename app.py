@@ -29,7 +29,7 @@ MODEL_DIR = "model"
 MODEL_PATH = os.path.join(MODEL_DIR, "retina_model.h5")
 
 # ضع رابط المودل هنا (HuggingFace / Drive / أي رابط مباشر)
-MODEL_URL = https://drive.google.com/file/d/13YC9qiqhIwVc0qlmp_Tp-N0C2taOaiMX/view?usp=drive_link
+MODEL_URL = "https://drive.google.com/uc?export=download&id=13YC9qiqhIwVc0qlmp_Tp-N0C2taOaiMX"
 
 LABELS = [
     {
