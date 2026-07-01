@@ -26,7 +26,7 @@ st.set_page_config(
 # Config
 # ----------------------------------------------------------------------------
 IMG_SIZE = 380
-MODEL_PATH = os.path.join("model", "retinal_model.h5")
+MODEL_PATH = os.path.join("model", "retina_model (1)")
 # Optional: if you host the weights externally (e.g. Hugging Face Hub) instead
 # of committing a large binary to GitHub, set this URL and the app will
 # download the file automatically on first run.
