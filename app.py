@@ -29,7 +29,7 @@ MODEL_DIR = "model"
 MODEL_PATH = os.path.join(MODEL_DIR, "retina_model.h5")
 
 # ضع رابط المودل هنا (HuggingFace / Drive / أي رابط مباشر)
-MODEL_URL = "https://drive.google.com/uc?export=download&id=13YC9qiqhIwVc0qlmp_Tp-N0C2taOaiMX"
+MODEL_URL = "https://drive.google.com/file/d/13YC9qiqhIwVc0qlmp_Tp-N0C2taOaiMX/view?usp=drive_link"
 
 LABELS = [
     {
@@ -79,19 +79,39 @@ st.markdown("""
 def load_model():
 
     import tensorflow as tf
-    import urllib.request
+    import gdown
 
     os.makedirs(MODEL_DIR, exist_ok=True)
 
+    # إذا الملف غير موجود قم بتنزيله
     if not os.path.exists(MODEL_PATH):
 
         if MODEL_URL:
-            st.info("📥 Downloading model for first run...")
-            urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
+            with st.spinner("📥 Downloading AI model... (first run only)"):
+                gdown.download(
+                    url=MODEL_URL,
+                    output=MODEL_PATH,
+                    quiet=False,
+                    fuzzy=True
+                )
         else:
             return None
 
-    return tf.keras.models.load_model(MODEL_PATH, compile=False)
+    # التأكد أن الملف ليس فارغاً
+    if os.path.getsize(MODEL_PATH) == 0:
+        st.error("Downloaded model file is empty.")
+        return None
+
+    try:
+        model = tf.keras.models.load_model(
+            MODEL_PATH,
+            compile=False
+        )
+        return model
+
+    except Exception as e:
+        st.error(f"Failed to load model: {e}")
+        return None
 
 
 # ----------------------------------------------------------------------------
